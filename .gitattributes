@@ -1,0 +1,5 @@
+# Ignore static and migrations folders from language statistics
+static/* linguist-vendored
+migrations/* linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored
