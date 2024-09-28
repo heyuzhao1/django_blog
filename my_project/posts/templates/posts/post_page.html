@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{%block title%}
+{{post.title}}
+{%endblock%}
+
+{%block content%}
+<section>
+    <img
+    class = "banner"
+    src="{{post.banner.url}}" 
+    alt="{{post.title}}">
+<h1>{{post.title}}</h1>
+<p>{{post.date}}</p>
+<p>{{post.body}}</p>
+
+{% if post.author == request.user %}  <!-- 检查当前用户是否为帖子发布者 -->
+    <form action="{% url 'posts:post-delete' post.id %}" method="post">  <!-- 删除表单 -->
+        {% csrf_token %}  <!-- 防止跨站请求伪造 -->
+        <button type="submit" class="btn btn-danger">删除</button>  <!-- 删除按钮 -->
+    </form>
+    {% comment %} edit button lead to post-edit url {% endcomment %}
+ 
+     <form action="{% url 'posts:post-edit' post.id %}"method="get">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Edit</button>
+    </form> 
+   
+{% endif %}
+</section>
+{%endblock%}

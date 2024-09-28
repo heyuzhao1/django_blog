@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% comment %} layout.html 作为模板给所有页面使用 {% endcomment %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Django App
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/"><span role="img" title="Home">🏠</span></a>
+            <a href="/about"><span role="img" title="About">😄</span></a>
+            <a href="{% url 'posts:list' %}"><span role="img" title="Post">📰</span></a>
+            
+            {% if user.is_authenticated %}
+                <a href="{% url 'posts:new-post' %}"><span role="img" title="New Post">🆕</span></a>
+            {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="nav-right">
+                <form class="logout" action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" title="User Logout">🏃‍♂️</button>
+                </form>
+                <a href="{% url 'users:profile' %}"><span role="img" title="Profile">💀</span></a>
+            </div>
+        {% else %}
+            <div class="nav-right">
+                <a href="{% url 'users:register' %}"><span role="img" title="registration">🚀</span></a>
+                <a href="{% url 'users:login' %}"><span role="img" title="login">🔐</span></a>
+            </div>
+        {% endif %}
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+
+</html>

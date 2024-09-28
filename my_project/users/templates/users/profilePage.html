@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{%block title%}
+Edit Your Profile
+{%endblock%}
+
+{%block content%}
+<h1>Edit Your Profile</h1>
+    {% comment %} #Display the form with all user information, user can click to edit and save  
+     can add browsing view and editing view separately later {% endcomment %}
+<form class="form-with-validation" action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}<!-- CSRF 保护 -->
+    {{ form }}<!-- 显示表单 -->
+    <button class="form-submit">Update</button>
+</form>
+{%endblock%}

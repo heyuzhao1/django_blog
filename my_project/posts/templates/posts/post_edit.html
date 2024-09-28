@@ -1,0 +1,19 @@
+{% extends "layout.html" %} {%block title%} Edit Post {%endblock%} 
+{%block content%}
+<section>
+  <h1>Edit Post</h1>
+  {% if post.id %}  <!-- 检查 post.id 是否存在 -->
+  <form
+    class="form-with-validation"
+    action="{%url 'posts:post-edit' post.id %}"  
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} 
+    {{form}}
+   
+    <button class="form-submit">Save</button>
+  </form>
+  {% endif %}
+</section>
+{%endblock%}
